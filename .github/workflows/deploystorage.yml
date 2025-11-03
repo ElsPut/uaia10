@@ -1,0 +1,35 @@
+name: deploy-sa
+on:
+  workflow_dispatch:
+  
+env:
+ 
+ 
+permissions:
+ 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: sign in to Azure
+        uses: azure/login@v1
+        with:
+          client-id: 
+          tenant-id: 
+          subscription-id: 
+
+      - name: deploy RG
+        uses: azure/cli@v1
+        with:
+         inlineScript:
+          az group create --name  --location
+          
+      - name: deploy storage
+        uses: azure/arm-deploy@v1
+        with:
+         deploymentName: ${{github.run_Number}}
+         resourceGroupName: 
+         template: ./sa.bicep
